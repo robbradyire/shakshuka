@@ -1,3 +1,5 @@
+PRAGMA foreign_keys = ON;
+
 CREATE TABLE IF NOT EXISTS recipe (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -18,8 +20,8 @@ CREATE TABLE IF NOT EXISTS recipe_ingredient (
     preparation TEXT,
     quantity TEXT,
     PRIMARY KEY (recipe_id, ingredient_id)
-    FOREIGN KEY (recipe_id) REFERENCES recipe (id),
-    FOREIGN KEY (ingredient_id) REFERENCES ingredient (id)
+    FOREIGN KEY (recipe_id) REFERENCES recipe (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ingredient_id) REFERENCES ingredient (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS tag (
@@ -31,7 +33,7 @@ CREATE TABLE IF NOT EXISTS recipe_tag (
     recipe_id INTEGER NOT NULL,
     tag_id INTEGER NOT NULL,
     PRIMARY KEY (recipe_id, tag_id),
-    FOREIGN KEY (recipe_id) REFERENCES recipe (id),
-    FOREIGN KEY (tag_id) REFERENCES tag (id)
+    FOREIGN KEY (recipe_id) REFERENCES recipe (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES tag (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
