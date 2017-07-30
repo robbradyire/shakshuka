@@ -102,3 +102,6 @@ ENV/
 
 # database stuffs
 *.db
+
+# environment vars
+backend/environ.py
