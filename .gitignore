@@ -104,4 +104,4 @@ ENV/
 *.db
 
 # environment vars
-backend/environ.py
+backend/recipes/environ.py
