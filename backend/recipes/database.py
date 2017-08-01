@@ -1,9 +1,10 @@
 # database.py
 # contains the logic for interacting with the database
 
-import environ
 import os
 import sqlite3
+
+from . import environ
 
 class RecipeDatabase:
     """Stores database interaction methods"""
@@ -188,4 +189,7 @@ class RecipeDatabase:
 
     def delete_tag(self, recipe_id, tag_id, args):
         return None
+
+if __name__ == '__main__':
+    print('2')
 
