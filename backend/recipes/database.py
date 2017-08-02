@@ -3,6 +3,7 @@
 
 import os
 import sqlite3
+import sys
 
 from . import environ
 
