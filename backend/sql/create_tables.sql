@@ -1,5 +1,3 @@
-PRAGMA foreign_keys = ON;
-
 CREATE TABLE IF NOT EXISTS recipe (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
