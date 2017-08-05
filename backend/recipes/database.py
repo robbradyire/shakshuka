@@ -59,14 +59,14 @@ class RecipeDatabase:
     ###################################
 
     def get_recipes(self):
-        """Return all recipe ids and names
+        """Return all recipes
 
         Params: None
         Return: list
         """
         with sqlite3.connect(self.db) as connection:
             cursor = connection.cursor()
-            cursor.execute("SELECT id, name FROM recipe")
+            cursor.execute("SELECT * FROM recipe")
             return cursor.fetchall()
         return []
 
@@ -81,7 +81,7 @@ class RecipeDatabase:
             cursor = connection.cursor()
             query = ' '.join((
                 "SELECT *",
-                "FROM recipes WHERE id=?",
+                "FROM recipe WHERE id=?",
             ))
             cursor.execute(query, (recipe_id,))
             return cursor.fetchone()
@@ -101,7 +101,7 @@ class RecipeDatabase:
         with sqlite3.connect(self.db) as connection:
             cursor = connection.cursor()
             query = ' '.join((
-                "INSERT INTO recipes",
+                "INSERT INTO recipe",
                 "(name, instructions, link, comments, servings)",
                 "VALUES (?,?,?,?,?)",
             ))
