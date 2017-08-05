@@ -13,9 +13,10 @@ class RecipeDatabase:
     def __init__(self, test=True):
         """Creates a RecipeDatabase
         
-        Params:
-            test: chooses whether to use the test or production db
-        returns: RecipeDatabase
+        :param test: Selects the test or the production DB
+        :type test: Boolean
+        :return: An object to interact with the database
+        :rtype: RecipeDatabase
         """
         if test:
             self.db = os.environ["TEST_DB"]
@@ -25,8 +26,8 @@ class RecipeDatabase:
     def new_db(self):
         """Creates a new database if there isn't one present already
         
-        Params: None
-        Returns: True or False
+        :return: True or False
+        :rtype: Boolean
         """
         with sqlite3.connect(self.db) as connection:
             cursor = connection.cursor()
@@ -40,8 +41,8 @@ class RecipeDatabase:
     def drop_db(self):
         """Clear the database
         
-        Params: None
-        Return: True or False
+        :return: True or False
+        :rtype: Boolean
         """
         with sqlite3.connect(self.db) as connection:
             cursor = connection.cursor()
@@ -59,11 +60,6 @@ class RecipeDatabase:
     ###################################
 
     def get_recipes(self):
-        """Return all recipes
-
-        Params: None
-        Return: list
-        """
         with sqlite3.connect(self.db) as connection:
             cursor = connection.cursor()
             cursor.execute("SELECT * FROM recipe")
@@ -71,12 +67,6 @@ class RecipeDatabase:
         return []
 
     def get_recipe(self, recipe_id):
-        """Return a recipe by its ID
-        
-        Params:
-            recipe_id: int
-        Return: recipe OR None
-        """
         with sqlite3.connect(self.db) as connection:
             cursor = connection.cursor()
             query = ' '.join((
@@ -87,17 +77,39 @@ class RecipeDatabase:
             return cursor.fetchone()
         return None
 
+    def get_ingredients(self):
+        with sqlite3.connect(self.db) as connection:
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM ingredient")
+            return cursor.fetchall()
+        return []
+
+    def get_tags(self):
+        with sqlite3.connect(self.db) as connection:
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM tag")
+            return cursor.fetchall()
+        return []
+
+    def get_recipe_ingredients(self, recipe_id):
+        with sqlite3.connect(self.db) as connection:
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM recipe_ingredient")
+            return cursor.fetchall()
+        return []
+
+    def get_recipe_tags(self, recipe_id):
+        with sqlite3.connect(self.db) as connection:
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM recipe_tag")
+            return cursor.fetchall()
+        return []
+
     ###################################
     # CREATE
     ###################################
 
     def create_recipe(self, args):
-        """Create a recipe
-        
-        Params:
-            args: dict
-        Return: True or None
-        """
         with sqlite3.connect(self.db) as connection:
             cursor = connection.cursor()
             query = ' '.join((
@@ -113,12 +125,6 @@ class RecipeDatabase:
         return None
 
     def create_recipe_ingredient(self, args):
-        """Create a recipe ingredient
-        
-        Params:
-            args: dict
-        Return: True or None
-        """
         with sqlite3.connect(self.db) as connection:
             cursor = connection.cursor()
             query = ' '.join((
@@ -166,12 +172,6 @@ class RecipeDatabase:
     ###################################
 
     def delete_recipe(self, recipe_id):
-        """Delete a recipe by its ID
-
-        Params:
-            recipe_id: int
-        Return: recipe or None
-        """
         with sqlite3.connect(self.db) as connection:
             cursor = connection.cursor()
             cursor.execute("SQL")

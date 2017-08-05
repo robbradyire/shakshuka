@@ -18,7 +18,6 @@ class TestRecipeDatabase(unittest.TestCase):
         os.remove(os.environ["TEST_DB"])
 
     def test_create_recipe(self):
-        """Tests the creation of a recipe"""
         test_rd = database.RecipeDatabase(test=True)
         test_rd.create_recipe({
             'name': "test recipe",
