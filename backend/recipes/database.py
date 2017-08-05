@@ -62,7 +62,7 @@ class RecipeDatabase:
     def get_recipes(self):
         with sqlite3.connect(self.db) as connection:
             cursor = connection.cursor()
-            cursor.execute("SELECT * FROM recipe")
+            cursor.execute("SELECT id, name FROM recipe")
             return cursor.fetchall()
         return []
 
@@ -124,6 +124,24 @@ class RecipeDatabase:
             return True
         return None
 
+    def create_ingredient(self, args):
+        with sqlite3.connect(self.db) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO ingredient name VALUE ?"
+            cursor.execute(query, args["name"])
+            connection.commit()
+            return True
+        return None
+
+    def create_tag(self, args):
+        with sqlite3.connect(self.db) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO tag name VALUE ?"
+            cursor.execute(query, args["name"])
+            connection.commit()
+            return True
+        return None
+
     def create_recipe_ingredient(self, args):
         with sqlite3.connect(self.db) as connection:
             cursor = connection.cursor()
@@ -133,19 +151,23 @@ class RecipeDatabase:
                 "VALUES (?,?,?,?)",
             ))
             cursor.execute(query,
-                (args["recipe_id"], args["ingredient_id"], args["preparation"], 
+                (args["recipe_id"], args["ingredient_id"], args["preparation"],
                  args["quantity"],))
             connection.commit()
             return True
         return None
 
     def create_recipe_tag(self, args):
-        return None
-
-    def create_ingredient(self, args):
-        return None
-
-    def create_tag(self, args):
+        with sqlite3.connect(self.db) as connection:
+            cursor = connection.cursor()
+            query = ' '.join((
+                "INSERT INTO recipe_tag",
+                "(recipe_id, tag_id)",
+                "VALUES (?,?)",
+            ))
+            cursor.execute(query, (args["recipe_id"], args["tag_id"],))
+            connection.commit()
+            return True
         return None
 
     ###################################

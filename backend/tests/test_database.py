@@ -26,9 +26,9 @@ class TestRecipeDatabase(unittest.TestCase):
             'comments': "tasty",
             'servings': "1-2"
         })
-        q_result = test_rd.get_recipes()
-        expected = [(1, "test recipe", "One\nTwo\n", "link.com", "tasty", "1-2")]
-        self.assertListEqual(expected, q_result)
+        q_result = test_rd.get_recipe(1)
+        expected = (1, "test recipe", "One\nTwo\n", "link.com", "tasty", "1-2")
+        self.assertEqual(expected, q_result)
 
 if __name__ == '__main__':
     unittest.main()
